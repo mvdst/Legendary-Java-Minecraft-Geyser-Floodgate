@@ -1,15 +1,15 @@
-name: Issue assignment
+name: MC Server Copy
 
-on:
-  issues:
-    types: [opened]
+on: push
 
 jobs:
-  auto-assign:
+  build-container:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Auto-assign issue'
-        uses: pozil/auto-assign-issue@v1
+      - name: 'Publish to Docker Hub'
+        uses: docker/build-push-action@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: TheRemote
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD}}
+          repository: mvdst/legendary-minecraft-geyser-floodgate
+          tags: latest, ${{ github.run_number }}
