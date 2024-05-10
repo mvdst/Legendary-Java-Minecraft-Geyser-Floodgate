@@ -20,4 +20,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: latest, ${{ github.run_number }}
+          tags: mvdst/legendary-minecraft-geyser-floodgate:latest
