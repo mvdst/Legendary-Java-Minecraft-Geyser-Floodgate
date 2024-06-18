@@ -12,6 +12,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-s
 FROM --platform=linux/amd64 ubuntu:oracular
 
 # Add universe for openjdk 23 support
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common -yqq && rm -rf /var/cache/apt/*
 RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 
 # Fetch dependencies
