@@ -9,7 +9,10 @@ FROM ubuntu:oracular AS builder
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support apt-utils -yqq && rm -rf /var/cache/apt/*
 
 # Use Ubuntu rolling version
-FROM --platform=linux/amd64 ubuntu:rolling
+FROM --platform=linux/amd64 ubuntu:oracular
+
+# Add universe for openjdk 23 support
+RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 
 # Fetch dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install openjdk-23-jre-headless systemd-sysv tzdata sudo curl unzip net-tools gawk openssl findutils pigz libcurl4 libc6 libcrypt1 apt-utils libcurl4-openssl-dev ca-certificates binfmt-support nano -yqq && rm -rf /var/cache/apt/*
